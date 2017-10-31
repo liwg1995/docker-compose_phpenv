@@ -12,5 +12,6 @@ RUN apt-get update && apt-get install -y \
  			  && docker-php-ext-install gd \
 
 COPY ./config/php.ini /usr/local/etc/php/conf.d/
+ADD composer.phar /usr/local/bin/composer
 
 EXPOSE 9000
