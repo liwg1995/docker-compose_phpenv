@@ -1,0 +1,44 @@
+version: "2"
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "127.0.0.1:80:80"
+    links:
+      - "php-fpm"
+    volumes:
+      - ~/workspace/web/www:/var/www
+      - ~/workspace/web/nginx/conf.d:/etc/nginx/conf.d
+     
+  php-fpm:
+     build: ./php-fpm
+     ports:
+       - "127.0.0.1:9000:9000"
+     volumes:
+       - ~/workspace/web/www:/var/www
+     links:
+       - "mysql"
+       - "redis"
+       - "memcache"
+
+        
+  mysql:
+     build: ./mysql
+     ports: 
+       - "127.0.0.1:3307:3307"
+     volumes:
+       - ~/usr/local/var/mysql:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: "root"
+
+  redis:
+     build: ./redis
+     ports:
+       - "127.0.0.1:11211:11211"
+
+  memcache:
+     build: ./memcache
+     ports: "127.0.0.1:6379:6379"
+
+
