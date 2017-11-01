@@ -3,6 +3,6 @@ FROM nginx:latest
 ADD sources.list /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y vim \
-                   && rm -r /var/lib/apt/lists/* \
+                   && rm -r /var/lib/apt/lists/*
 
 EXPOSE 80
