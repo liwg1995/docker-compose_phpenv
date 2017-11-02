@@ -28,3 +28,7 @@ $ apt-get install python-pip
 ```
 $ docker-compose up -d
 ```
+- 重新构建
+```
+$ docker-compose up -d --build
+```
