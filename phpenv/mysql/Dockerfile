@@ -1,3 +1,3 @@
 FROM mysql:5.7
 
-EXPOSE 3307
+EXPOSE 3306
