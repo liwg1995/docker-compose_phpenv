@@ -8,15 +8,15 @@ services:
     links:
       - "php-fpm"
     volumes:
-      - ~/workspace/web/www:/var/www
-      - ~/workspace/web/nginx/conf.d:/etc/nginx/conf.d
+      - ../web/www:/var/www
+      - ../web/nginx/conf.d:/etc/nginx/conf.d
      
   php-fpm:
      build: ./php-fpm
      ports:
        - "127.0.0.1:9000:9000"
      volumes:
-       - ~/workspace/web/www:/var/www
+       - ../web/www:/var/www
      links:
        - "mysql"
        - "redis"
@@ -28,7 +28,7 @@ services:
      ports: 
        - "127.0.0.1:3306:3306"
      volumes:
-       - ~/usr/local/var/mysql:/var/lib/mysql
+       - ./mysql/data:/var/lib/mysql
      environment:
        MYSQL_ROOT_PASSWORD: "root"
 
