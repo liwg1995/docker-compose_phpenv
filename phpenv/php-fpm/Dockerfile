@@ -1,6 +1,5 @@
 FROM php:7.0-fpm
 
-ADD sources.list  /etc/apt/sources.list
 
 WORKDIR /var/www
 
