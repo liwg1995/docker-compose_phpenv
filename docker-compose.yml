@@ -1,0 +1,60 @@
+# Compose区分Version 1和Version 2。
+# Version 2支持更多的指令。Version 1没有声明版本默认是"version 1"。Version 1将来会被弃用。
+
+version: "2"
+
+services:
+
+  mysql:
+     build: ./mysql
+     ports: 
+       - "127.0.0.1:3307:3306"
+     restart: always
+     container_name: docker_mysql
+     volumes:
+       - /usr/local/var/mysql:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: "root"
+       # MYSQL_DATABASE: "app"
+       # MYSQL_USER: "app"
+       # MYSQL_PASSWORD: "123123"
+
+  redis:
+     build: ./redis
+     restart: always
+     container_name: docker_redis
+     ports:
+       - "127.0.0.1:6379:6379"
+
+  memcache:
+     build: ./memcache
+     restart: always
+     container_name: docker_memcache
+     ports: 
+       - "127.0.0.1:11211:11211"
+
+  ubuntu:
+     build: ./ubuntu
+     restart: always
+     container_name: docker_php
+     ports:
+       - "127.0.0.1:9001:9000"
+     volumes:
+       - ~/workspace/www:/var/www
+     links:
+       - "redis"
+       - "memcache"
+       - "mysql"
+
+
+  nginx:
+    build: ./nginx
+    restart: always
+    container_name: docker_nginx
+    ports:
+      - "127.0.0.1:80:80"
+    links:
+      - "ubuntu"
+      - "mysql"
+    volumes:
+      - ~/workspace/www:/var/www
